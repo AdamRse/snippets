@@ -1,20 +1,14 @@
-# Import de la classe depuis db_conf.py
-from db_conf import DatabaseConfig
+from db_conf import AutoDB
 
-def main():
-    try:
-        # 1. Chargement de la configuration
-        config = DatabaseConfig.from_env()
+# Exemple 1 : Connexion automatique basée uniquement sur le .env
+db = AutoDB()
 
-        # 2. Utilisation de l'objet config
-        print("--- Configuration chargée avec succès ---")
-        print(f"Hôte     : {config.host}")
-        print(f"Port     : {config.port}")
-        print(f"Base     : {config.name}")
-        print(f"Utilisateur : {config.user}")
+# Exemple 2 : Connexion en surchargeant le port ou l'utilisateur
+# db = AutoDB(db_name="prod_db", db_addr="192.168.1.50")
 
-    except ValueError as e:
-        print(f"Erreur de configuration : {e}")
+print(f"Base retenue : {db.db_type} sur le port {db.db_port} avec l'user '{db.db_user}'")
 
-if __name__ == "__main__":
-    main()
+users = db.execute_query("""
+    SELECT * FROM incident;
+""")
+print("Utilisateurs dans la base :", users)
