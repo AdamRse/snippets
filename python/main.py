@@ -8,5 +8,9 @@ db = AutoDB()
 
 print(f"Base retenue : {db.db_type} sur le port {db.db_port} avec l'user '{db.db_user}'")
 
-incidents = db.execute_query("SELECT * FROM incident;")
-print("Résultat incidents : ", incidents)
+incidents = db.execute_query("SELECT * FROM incident ORDER BY id DESC LIMIT 10")
+#print("Résultat incidents : ", incidents)
+for item in incidents:
+    print("==== incident N° "+str(item["id"])+"====")
+    print("Date : "+str(item["date"]))
+    print()
