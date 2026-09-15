@@ -8,7 +8,5 @@ db = AutoDB()
 
 print(f"Base retenue : {db.db_type} sur le port {db.db_port} avec l'user '{db.db_user}'")
 
-users = db.execute_query("""
-    SELECT * FROM incident;
-""")
-print("Utilisateurs dans la base :", users)
+incidents = db.execute_query("SELECT * FROM incident;")
+print("Résultat incidents : ", incidents)
